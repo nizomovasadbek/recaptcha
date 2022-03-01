@@ -7,11 +7,11 @@ import java.util.logging.Logger;
 
 @Component
 public class iLog {
-    private static void logInfo(String msg){
+    public static void logInfo(String msg){
         Logger.getAnonymousLogger().log(Level.INFO, msg);
     }
 
-    private static void logWarning(String msg){
+    public static void logWarning(String msg){
         Logger.getAnonymousLogger().log(Level.WARNING, msg);
     }
 }

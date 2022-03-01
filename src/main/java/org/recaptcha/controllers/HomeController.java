@@ -9,9 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
+import static org.recaptcha.utils.iLog.logInfo;
 import static org.springframework.http.HttpMethod.POST;
 
 @Controller
@@ -36,18 +34,29 @@ public class HomeController {
 
     @PostMapping("/login")
     public String loginUserWithRecaptcha(@RequestParam("name") String name, @RequestParam("g-recaptcha-response") String response){
-        Logger.getAnonymousLogger().log(Level.INFO, "Got " + name);
+        logInfo("Got " + name);
 
         String url = "https://www.google.com/recaptcha/api/siteverify";
         String params = "?secret="+secretKey+"&response="+response;
 
         ReCaptchaResponse res = restTemplate.exchange(url+params, POST, null, ReCaptchaResponse.class).getBody();
 
+        logInfo("getting data from " + url+params);
+
         assert res != null;
-        if(res.isSuccess()){
-            System.out.println(true);
+        if(res.isSuccess() && res.getScore() >= 0.5){
+            logInfo("Response status: true");
+            logInfo("rate:"+res.getScore());
+            logInfo(res.getAction());
+            logInfo(res.getChallange_ts());
+            logInfo(res.getHostname());
             return "redirect:/user";
         } else {
+            logInfo("Response status: false");
+            logInfo("rate:"+res.getScore());
+            logInfo(res.getAction());
+            logInfo(res.getChallange_ts());
+            logInfo(res.getHostname());
             return "redirect:/login";
         }
     }

@@ -5,6 +5,24 @@ public class ReCaptchaResponse {
     private boolean success;
     private String challange_ts;
     private String hostname;
+    private double score;
+    private String action;
+
+    public double getScore() {
+        return score;
+    }
+
+    public void setScore(double score) {
+        this.score = score;
+    }
+
+    public String getAction() {
+        return action;
+    }
+
+    public void setAction(String action) {
+        this.action = action;
+    }
 
     public boolean isSuccess() {
         return success;
