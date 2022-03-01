@@ -1,11 +1,10 @@
 package org.recaptcha.config;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -31,7 +30,7 @@ public class Config implements WebMvcConfigurer {
     private String suffix;
 
     @Bean
-    public FreeMarkerConfigurer free(){
+    public FreeMarkerConfigurer freeMarkerConfigurer(){
         FreeMarkerConfigurer configurer = new FreeMarkerConfigurer();
         configurer.setTemplateLoaderPath(prefix);
         configurer.setDefaultEncoding(defaultCharset);
@@ -52,7 +51,6 @@ public class Config implements WebMvcConfigurer {
     }
 
     @Bean
-    @Scope("prototype")
     public RestTemplate restTemplate(){
         return new RestTemplate();
     }
