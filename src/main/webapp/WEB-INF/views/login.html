@@ -3,14 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script src="https://www.google.com/recaptcha/api.js?render=6LcwvageAAAAAG_rj-7EaNQUIPsNlke8wFzy9KB8"></script>
 </head>
 <body>
       <form action="/login" method="post">
           <input type="text" name="name" value="IntelliJ">
+          <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-response">
           <br><br>
-          <div class="g-recaptcha" data-sitekey="6LeYwJ4eAAAAABFDlYX6uqabA4B6wgM90c9NaeX5"></div>
           <button type="submit">Login</button>
       </form>
+      <script>
+      function onClick(e) {
+        e.preventDefault();
+        grecaptcha.ready(function() {
+          grecaptcha.execute('6LcwvageAAAAAG_rj-7EaNQUIPsNlke8wFzy9KB8', {action: 'homepage'}).then(function(token) {
+              document.getElementById("g-recaptcha-response").value = token;
+          });
+        });
+      }
+  </script>
 </body>
 </html>

@@ -5,14 +5,12 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import static org.springframework.http.HttpMethod.POST;
 
@@ -38,7 +36,7 @@ public class HomeController {
 
     @PostMapping("/login")
     public String loginUserWithRecaptcha(@RequestParam("name") String name, @RequestParam("g-recaptcha-response") String response){
-        System.out.println(name);
+        Logger.getAnonymousLogger().log(Level.INFO, "Got " + name);
 
         String url = "https://www.google.com/recaptcha/api/siteverify";
         String params = "?secret="+secretKey+"&response="+response;
